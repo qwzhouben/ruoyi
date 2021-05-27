@@ -27,4 +27,18 @@ public interface SysRoleMapper {
      * @return 角色列表
      */
     List<SysRole> selectRolesByUserName(@Param("username") String username);
+
+    /**
+     * 根据条件分页查询角色数据
+     * @param role
+     * @return
+     */
+    List<SysRole> selectRoleList(SysRole role);
+
+    /**
+     * 根据用户ID获取角色选择框列表
+     * @param userId
+     * @return
+     */
+    List<Integer> selectRoleListByUserId(Long userId);
 }

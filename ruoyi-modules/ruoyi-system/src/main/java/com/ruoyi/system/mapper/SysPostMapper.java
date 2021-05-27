@@ -19,6 +19,19 @@ public interface SysPostMapper {
      * @return
      */
     List<SysPost> selectPostsByUsername(@Param("username") String username);
+
+    /**
+     * 查询所有岗位
+     * @return
+     */
+    List<SysPost> selectPostAll();
+
+    /**
+     * 根据用户ID获取岗位选择框列表
+     * @param userId
+     * @return
+     */
+    List<Integer> selectPostListByUserId(Long userId);
 }
 
 

@@ -3,6 +3,8 @@ package com.ruoyi.system.mapper;
 import com.ruoyi.system.api.domain.SysUser;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @DESC:用户表 数据层
  * @AUTHOR: zhouben
@@ -56,4 +58,27 @@ public interface SysUserMapper {
      * @return
      */
     int resetUserPwd(@Param("username") String username, @Param("password") String password);
+
+    /**
+     * 根据条件分页查询用户列表
+     * @param user
+     * @return
+     */
+    List<SysUser> selectUserList(SysUser user);
+
+    /**
+     * 校验用户名称是否唯一
+     *
+     * @param userName 用户名称
+     * @return 结果
+     */
+    int checkUserNameUnique(String userName);
+
+    /**
+     * 新增用户信息
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    int insertUser(SysUser user);
 }

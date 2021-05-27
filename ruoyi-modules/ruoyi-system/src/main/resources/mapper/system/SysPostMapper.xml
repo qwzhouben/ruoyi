@@ -30,5 +30,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where u.user_name = #{username}
 	</select>
 
+	<select id="selectPostAll" resultMap="SysPostResult">
+		<include refid="selectPostVo"/>
+	</select>
+
+	<select id="selectPostListByUserId" parameterType="Long" resultType="Integer">
+		select p.post_id
+        from sys_post p
+	        left join sys_user_post up on up.post_id = p.post_id
+	        left join sys_user u on u.user_id = up.user_id
+	    where u.user_id = #{userId}
+	</select>
+
 
 </mapper> 

@@ -40,4 +40,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE r.del_flag = '0' and u.user_name = #{username}
 	</select>
 
+    <select id="selectRoleList" parameterType="com.ruoyi.system.api.domain.SysRole" resultMap="SysRoleResult">
+		<include refid="selectRoleVo"/>
+		where r.del_flag = '0'
+		<if test="roleName != null and roleName != ''">
+			AND r.role_name like concat('%', #{roleName}, '%')
+		</if>
+		<if test="status != null and status != ''">
+			AND r.status = #{status}
+		</if>
+		<if test="roleKey != null and roleKey != ''">
+			AND r.role_key like concat('%', #{roleKey}, '%')
+		</if>
+		<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+			and date_format(r.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+		</if>
+		<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+			and date_format(r.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+		</if>
+		<!-- 数据范围过滤 -->
+		${params.dataScope}
+		order by r.role_sort
+	</select>
+
+	<select id="selectRoleListByUserId" parameterType="Long" resultType="Integer">
+		select r.role_id
+        from sys_role r
+	        left join sys_user_role ur on ur.role_id = r.role_id
+	        left join sys_user u on u.user_id = ur.user_id
+	    where u.user_id = #{userId}
+	</select>
+
 </mapper> 
